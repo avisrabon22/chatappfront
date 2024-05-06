@@ -1,5 +1,5 @@
-# chat app front end 
+# Chat app front end 
 
 ## Subject:
--- Using react vite js to develope a intaractive front end system for Chat communication
+--Using react vite js to develope a intaractive front end system for Chat communication
 
