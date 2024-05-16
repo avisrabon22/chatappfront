@@ -20,9 +20,12 @@ export const Home = ()=>{
 
     const loginApi = async()=>{
         try{
-            const response = await axios.get("http://localhost:8000/api/v1/chatroom/getchat")
+            const response = await axios.post("http://localhost:8000/api/v1/login",userData,{withCredentials:true})
             console.log(response);
-            response.status === 200 ? ToastService.success("Login Success") : ToastService.error("Login Failed")
+           if(response.status === 200 && response.data!=null){
+            navigator.push("/chat_room")
+               ToastService.success(response.data.message)
+           }
         }
         catch(err){
             console.log(err);
