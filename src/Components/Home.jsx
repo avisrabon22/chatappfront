@@ -1,9 +1,12 @@
 import { useState } from "react"
 import ToastService from "./Toast"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
+// import Cookies from "js-cookie"
 
 
 export const Home = ()=>{
+    const navigator = useNavigate();
 
     const [userData,setUserData] = useState({
         username:"",
@@ -23,9 +26,12 @@ export const Home = ()=>{
             const response = await axios.post("http://localhost:8000/api/v1/login",userData,{withCredentials:true})
             console.log(response);
            if(response.status === 200 && response.data!=null){
-            navigator.push("/chat_room")
-               ToastService.success(response.data.message)
+            navigator("/chat_room")
+               ToastService.success(response.data)
            }
+              else{
+                ToastService.error("Invalid Credentials")
+              }
         }
         catch(err){
             console.log(err);
