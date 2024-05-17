@@ -9,7 +9,7 @@ const RouteGuard = ({ children }) => {
     useEffect(() => {
         const validateToken = async () => {
             try {
-                await axiosInstance.get('/user/validate-token');
+                await axiosInstance.get('/user/ValidateToken');
                 setIsAuthenticated(true);
             } catch (error) {
                 setIsAuthenticated(false);
