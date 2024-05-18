@@ -1,73 +1,78 @@
-import { useState } from "react"
-import ToastService from "./Toast"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
-// import Cookies from "js-cookie"
+import { useState } from "react";
+import ToastService from "./Toast";
+import { useNavigate } from "react-router-dom";
+import UserApi from "../API/UserApi";
+import axiosInstance from "../Components/Auth/AxiosInstance";
 
 
-export const Home = ()=>{
+
+
+export const Home = () => {
     const navigator = useNavigate();
 
-    const [userData,setUserData] = useState({
-        username:"",
-        password:""
+    const [userData, setUserData] = useState({
+        username: "",
+        password: ""
     })
 
-    const handleChange = (e)=>{
-        const {name,value} = e.target
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setUserData({
             ...userData,
-            [name]:value
+            [name]: value
         })
     }
 
-    const loginApi = async()=>{
-        try{
-            const response = await axios.post("http://localhost:8000/api/v1/login",userData,{withCredentials:true})
+    const loginApi = async () => {
+        try {
+            const response = await UserApi.getUser(userData);
             console.log(response);
-           if(response.status === 200 && response.data!=null){
-            navigator("/chat_room")
-               ToastService.success(response.data)
-           }
-              else{
+            if (response.status === 200 && response.data != null) {
+                navigator("/chat_room")
+                ToastService.success(response.data)
+            }
+            else {
                 ToastService.error("Invalid Credentials")
-              }
+            }
         }
-        catch(err){
+        catch (err) {
             console.log(err);
         }
     }
 
-  const handleSubmit =(e)=>{
-    e.preventDefault()
-    console.log(userData);
-   
-    if(userData.username.trim().length === 0 || userData.password.trim().length === 0) {
-        ToastService.error("Please fill all the fields", { autoClose: 2000})
-        setUserData({
-            username:"",
-            password:""
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(userData);
+
+        if (userData.username.trim().length === 0 || userData.password.trim().length === 0) {
+            ToastService.error("Please fill all the fields")
+            setUserData({
+                username: "",
+                password: ""
             })
-    }
-    else{
-       loginApi();
+        }
+        else {
+            loginApi();
+        }
+
     }
 
-}
-
+   
 
     return (
         <>
-        <h1>Home</h1>
+            <h1>Home</h1>
 
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="username" value={userData.username} onChange={handleChange} placeholder="Username" autoComplete="false" />
-            <input type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" autoComplete="false"/>
-            <button type="submit">Login</button>
-        </form>
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="username" value={userData.username} onChange={handleChange} placeholder="Username" autoComplete="false" />
+                <input type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" autoComplete="false" />
+                <button type="submit">Login</button>
+            </form>
         </>
     )
 
 
-    }
+}
 

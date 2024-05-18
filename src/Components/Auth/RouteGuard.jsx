@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import axiosInstance from './axiosConfig';
+import axiosInstance from './AxiosInstance';
+import PropTypes from 'prop-types';
 
-const RouteGuard = ({ children }) => {
+const RouteGuard = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-
+    
     useEffect(() => {
         const validateToken = async () => {
             try {
-                await axiosInstance.get('/user/ValidateToken');
+                await axiosInstance.get('/ValidateToken', { withCredentials: true });
                 setIsAuthenticated(true);
             } catch (error) {
                 setIsAuthenticated(false);
@@ -17,15 +18,18 @@ const RouteGuard = ({ children }) => {
                 setIsLoading(false);
             }
         };
-
+        
         validateToken();
     }, []);
-
+    
     if (isLoading) {
+        console.log('Loading...');
         return <div>Loading...</div>;
     }
-
-    return isAuthenticated ? children : <Navigate to="/login" />;
+    
+    return isAuthenticated ? children : <Navigate to="/" />;
 };
+
+RouteGuard.propTypes = { children : PropTypes.node.isRequired};
 
 export default RouteGuard;
