@@ -59,16 +59,22 @@ export const Home = () => {
 
     }
 
-   
+   const handleSignup = () => {
+        navigator("/sign_up")
+    }
 
     return (
         <>
-            <h1>Home</h1>
+            <h1 className="flex justify-center text-4xl font-bold">Chat Room</h1>
 
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="username" value={userData.username} onChange={handleChange} placeholder="Username" autoComplete="false" />
-                <input type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" autoComplete="false" />
-                <button type="submit">Login</button>
+            <form className="flex flex-col items-center mt-8" onSubmit={handleSubmit}>
+                <input className="border border-gray-300 rounded-md px-4 py-2 mb-4" type="text" name="username" value={userData.username} onChange={handleChange} placeholder="Username" autoComplete="false" />
+                <input className="border border-gray-300 rounded-md px-4 py-2 mb-4" type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" autoComplete="false" />
+                
+                <div className="flex justify-between w-fit">
+                    <button className="bg-blue-500 hover:bg-blue-700 active:bg-blue-900 text-white font-bold py-2 px-4 rounded" type="submit">Login</button>
+                    <button className="bg-green-500 hover:bg-green-700 active:bg-green-900 text-white font-bold py-2 px-4 rounded" onClick={handleSignup}>Signup</button>
+                </div>
             </form>
         </>
     )
