@@ -1,10 +1,10 @@
-import './App.css'
+import "../src/App.css";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { Home } from './Components/Home.jsx'
-import { ChatRoom } from './Components/ChatRoom.jsx'
-import RouteGuard from './Components/Auth/RouteGuard.jsx'
-import { AddUserType } from './Components/User/AddUserType.jsx'
-import { Signup } from './Components/User/Signup.jsx'
+import { Home } from '../src/Components/User/Home.jsx'
+import { ChatRoom } from '../src/Components/Dashboard/ChatRoom.jsx'
+import RouteGuard from '../src/Components/Auth/RouteGuard.jsx'
+import { AddUserType } from '../src/Components/User/AddUserType.jsx'
+import { Signup } from '../src/Components/User/Signup.jsx'
 
 function App() {
 

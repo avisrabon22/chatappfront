@@ -15,19 +15,14 @@ export const ChatRoom = ()=>{
 
     }
 
-
     const handleChange=(e)=>{
        const[name,value]=e.target;
-         setMessage({
-              ...message,
-              [name]:value
+         setMessage((msg)=>({
+                ...msg,
+                [name]:value
          })
+            )
     }
-
-
-
-
-
 
     return (
         <>
