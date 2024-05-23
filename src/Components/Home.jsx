@@ -2,7 +2,6 @@ import { useState } from "react";
 import ToastService from "./Toast";
 import { useNavigate } from "react-router-dom";
 import UserApi from "../API/UserApi";
-import axiosInstance from "../Components/Auth/AxiosInstance";
 
 
 
@@ -68,8 +67,8 @@ export const Home = () => {
             <h1 className="flex justify-center text-4xl font-bold">Chat Room</h1>
 
             <form className="flex flex-col items-center mt-8" onSubmit={handleSubmit}>
-                <input className="border border-gray-300 rounded-md px-4 py-2 mb-4" type="text" name="username" value={userData.username} onChange={handleChange} placeholder="Username" autoComplete="false" />
-                <input className="border border-gray-300 rounded-md px-4 py-2 mb-4" type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" autoComplete="false" />
+                <input className="border border-gray-300 rounded-md px-4 py-2 mb-4" type="text" name="username" value={userData.username} onChange={handleChange} placeholder="Username" autoComplete="false" required />
+                <input className="border border-gray-300 rounded-md px-4 py-2 mb-4" type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" autoComplete="false" required />
                 
                 <div className="flex justify-between w-fit">
                     <button className="bg-blue-500 hover:bg-blue-700 active:bg-blue-900 text-white font-bold py-2 px-4 rounded" type="submit">Login</button>

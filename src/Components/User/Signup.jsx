@@ -18,8 +18,19 @@ const handleChange = (e) => {
     })
 }
 
-    const handleSubmit= () =>{
+    const handleSubmit= (e) =>{
+        e.preventDefault();
      console.log(userData);
+     
+
+     setUserData ({
+        email: "",
+        password: "",
+        name: "",
+        gender: "",
+        role: ""
+    })
+
     }
 
 
