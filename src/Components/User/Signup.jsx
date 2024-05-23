@@ -1,6 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import UserTypeSignupApi from "../../API/UserTypeSignupApi";
+import UserApi from "../../API/UserApi";
+import ToastService from "../Toast";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
+    const navigator = useNavigate();
+    const [userType, setUserType] = useState([]);
+
+    const handleUserType = async () => {
+     try {
+         const response =  await UserTypeSignupApi.getUserTypeSignup();
+         const userTypeList = response.data.map(item => item);
+            setUserType(userTypeList);
+
+     } catch (error) {
+            console.log(error);
+        }
+       
+    }
+
+    useEffect(() => {
+        handleUserType();
+    }, [])
 
 const [userData, setUserData] = useState({
     email: "",
@@ -18,20 +40,21 @@ const handleChange = (e) => {
     })
 }
 
-    const handleSubmit= (e) =>{
+    const handleSubmit= async (e) =>{
         e.preventDefault();
-     console.log(userData);
-     
-
-     setUserData ({
-        email: "",
-        password: "",
-        name: "",
-        gender: "",
-        role: ""
-    })
-
+        try {
+            const response = await UserApi.createUser(userData);
+                ToastService.success(response.data);
+                navigator("/");
+                
+        }
+        catch (error) {
+            ToastService.error(error.response.data);
+            console.log(error.response.data);
+        }
+          
     }
+
 
 
     return (
@@ -46,14 +69,16 @@ const handleChange = (e) => {
 
             <select name="gender" value={userData.gender} onChange={handleChange}  required className="border border-gray-300 rounded-md px-4 py-2 mb-2">
                 <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
             </select>
 
             <select name="role" value={userData.role} onChange={handleChange} required className="border border-gray-300 rounded-md px-4 py-2 mb-2">
-                <option value="Selct">Select Role</option>
-                <option ></option>
+                <option value="">Select Role</option>
+                 {userType.map(item=>
+                    <option key={item.id} value={item.role}>{item.role}</option>
+                 )}
             </select>
 
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Sign Up</button>

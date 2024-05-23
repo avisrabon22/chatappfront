@@ -24,7 +24,7 @@ export const Home = () => {
 
     const loginApi = async () => {
         try {
-            const response = await UserApi.getUser(userData);
+            const response = await UserApi.loginUser(userData);
             console.log(response);
             if (response.status === 200 && response.data != null) {
                 navigator("/chat_room")
@@ -35,6 +35,7 @@ export const Home = () => {
             }
         }
         catch (err) {
+            ToastService.error("Something went wrong");
             console.log(err);
         }
     }
@@ -64,7 +65,7 @@ export const Home = () => {
 
     return (
         <>
-            <h1 className="flex justify-center text-4xl font-bold">Chat Room</h1>
+            <h1 className="flex justify-center text-4xl font-bold">Chat Room Login</h1>
 
             <form className="flex flex-col items-center mt-8" onSubmit={handleSubmit}>
                 <input className="border border-gray-300 rounded-md px-4 py-2 mb-4" type="text" name="username" value={userData.username} onChange={handleChange} placeholder="Username" autoComplete="false" required />

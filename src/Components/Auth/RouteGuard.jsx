@@ -23,7 +23,6 @@ const RouteGuard = ({children}) => {
     }, []);
     
     if (isLoading) {
-        console.log('Loading...');
         return <div>Loading...</div>;
     }
     
