@@ -7,14 +7,17 @@ import { useNavigate } from "react-router-dom";
 export const Signup = () => {
     const navigator = useNavigate();
     const [userType, setUserType] = useState([]);
+    const [err,setErr] = useState(null);
 
     const handleUserType = async () => {
      try {
          const response =  await UserTypeSignupApi.getUserTypeSignup();
+         setErr(response.data);
          const userTypeList = response.data.map(item => item);
             setUserType(userTypeList);
 
      } catch (error) {
+            setErr(error.response.data);
             console.log(error);
         }
        
@@ -23,6 +26,11 @@ export const Signup = () => {
     useEffect(() => {
         handleUserType();
     }, [])
+
+    useEffect(() => {
+            ToastService.error(err);
+        
+    }, [err])
 
 const [userData, setUserData] = useState({
     email: "",

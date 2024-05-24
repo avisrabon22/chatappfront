@@ -5,6 +5,7 @@ import { ChatRoom } from '../src/Components/Dashboard/ChatRoom.jsx'
 import RouteGuard from '../src/Components/Auth/RouteGuard.jsx'
 import { AddUserType } from '../src/Components/User/AddUserType.jsx'
 import { Signup } from '../src/Components/User/Signup.jsx'
+import { AdminRoom } from '../src/Components/Dashboard/AdminRoom.jsx'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/chat_room" element={<RouteGuard> <ChatRoom /> </RouteGuard>} />
+        <Route path='/admin_room' element={<RouteGuard> <AdminRoom/> </RouteGuard>} />
         <Route path='/add_user_type' element={<RouteGuard> <AddUserType /> </RouteGuard>} />
         <Route path='/sign_up' element={ <Signup/> } />
         <Route path="*" element={<h1 className="text-4xl text-red-500">404 Not Found</h1>} />
